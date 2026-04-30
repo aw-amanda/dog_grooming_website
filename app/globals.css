@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: rgb(195, 222, 200);
+  --color-secondary: rgb(154, 198, 203);
+  --color-tertiary: rgb(51, 98, 111);
+  --color-light: rgb(252, 247, 225);
+  --color-tan: rgb(211, 183, 135);
+}
+
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* LENIS SMOOTH SCROLL*/
+html.lenis, html.lenis-body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
