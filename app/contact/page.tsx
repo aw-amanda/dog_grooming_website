@@ -28,39 +28,23 @@ export default function Contact() {
     return(
         <section 
             id="contact"
-            className="relative w-full min-h-screen bg-tan overflow-hidden pt-18"
+            className="relative w-full min-h-screen bg-linear-to-b from-yellow-50 via-primary to-yellow-50 overflow-hidden pt-18"
         >
-            <div className="fixed inset-0 w-full flex items-center justify-center z-0 pointer-events-none">
-                <Image
-                    src={Tub}
-                    alt="Clean bathtub with professional dog grooming accessories - contact the best dog groomer in your area"
-                    className="w-full h-auto object-cover"
-                    priority
-                />
-            </div>
-            
-            {/* Content Container */}
             <div className="relative z-10 w-full px-4 py-12">
                 <div className="container mx-auto max-w-4xl">
-                    
-                    {/* Header Section with H1 and Description */}
-                    <header className="w-full max-w-3xl mx-auto p-8 bg-black/10 backdrop-blur-sm shadow-md rounded-xl text-center mb-12">
-                        <h1 className="text-tertiary text-3xl md:text-5xl text-shadow-lg font-bold">
+                    <header className="w-full max-w-3xl mx-auto p-8 text-center mb-12">
+                        <h1 className="text-tertiary text-3xl text-shadow-lg font-bold">
                             {contactPageContent.headings.main}
                         </h1>
                         <div className="w-full h-0.5 my-6 bg-linear-to-r from-transparent via-tertiary to-transparent"/>
-                        <p className="text-yellow-950 text-lg md:text-xl">
+                        <p className="text-yellow-950 text-md">
                             {contactPageContent.description}
                         </p>
                     </header>
 
-                    {/* Contact Form */}
-                    <div className="bg-black/10 backdrop-blur-sm rounded-xl shadow-md p-6 md:p-8 border border-tertiary/30">
-                        <h2 className="text-2xl font-bold text-tertiary text-center mb-6">
-                            Send Us a Message
-                        </h2>
-                        
+                    <div className="bg-black/10 backdrop-blur-sm rounded-xl shadow-md p-6 md:p-8 border border-tertiary/30">                        
                         <form className="w-full flex flex-col gap-5">
+
                             {/* Name Field */}
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="name" className="text-tertiary font-semibold text-lg">
@@ -207,7 +191,7 @@ export default function Contact() {
                                 </select>
                             </div>
 
-                            {/* Submit Button */}
+                            {/* Submit */}
                             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
                                 <button 
                                     type="submit"

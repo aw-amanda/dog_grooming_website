@@ -1,8 +1,7 @@
 import { Metadata } from "next";
 import { aboutPageContent, seoMetadata } from "@/app/data";
 import Image from "next/image";
-import Soap from "@/public/best-dog-groomer-soap-graphic.png";
-import Dog from "@/public/best-dog-groomer-dog-3.png";
+import AboutListImage from "@/public/pug.png";
 
 export const metadata: Metadata = {
     title: seoMetadata.about.title,
@@ -27,60 +26,52 @@ export const metadata: Metadata = {
 
 export default function About() {
     return(
-        <section
-            id="about"
-            className="w-full min-h-screen flex flex-col pt-18 px-4 items-center justify-center
-                       bg-linear-to-b from-yellow-50 via-primary to-yellow-50"
-        >
-            <div className="hidden md:block fixed left-0 top-18 p-2 md:p-4 z-0 pointer-events-none">
-                <Image
-                    src={Soap}
-                    alt="soap graphic"
-                    className="w-full max-w-xs h-auto object-contain overflow-hidden"
-                />
-            </div>
-            <div className="hidden md:block fixed right-0 bottom-2 p-2 md:p-4 z-0 pointer-events-none">
-                <Image
-                    src={Dog}
-                    alt="Dog graphic"
-                    className="w-full max-w-xs h-auto object-contain overflow-hidden"
-                />
-            </div>
+       <div className="flex min-h-screen flex-col bg-linear-to-b from-yellow-50 via-primary to-yellow-50 pt-18">
+            <main className="flex-1">
+                <section className="container mx-auto px-4 py-12">
+                    <header className="w-full p-2 flex flex-col items-center justify-center text-center gap-y-5">
+                        <h1 className="text-tertiary text-3xl md:text-5xl text-shadow-lg font-bold">{aboutPageContent.headings.main}</h1>
+                        <p className="text-gray-700 text-lg md:text-2xl my-2 md:my-4">{aboutPageContent.introParagraph}</p>
+                    </header>
 
-            <div className="z-10">
-                <header className="w-full md:w-2/3 max-w-6xl p-2 md:p-12 md:ml-75">
-                    <h1 className="text-[clamp(1.75rem,2rem+0.5vw,5rem)] font-semibold text-tertiary">{aboutPageContent.headings.main}</h1>
-                    <p className="text-md font-light mt-4 text-start">{aboutPageContent.introParagraph}</p>
-                </header>
-                <div className="container w-full md:w-2/3 max-w-5xl mt-12 px-4 py-8 bg-yellow-50/25 backdrop-blur-md rounded-xl">
-                    <h2 className="text-2xl text-secondary text-shadow-2xl font-bold mt-8 mb-4">{aboutPageContent.headings.whyChooseUs}</h2>
-                    <ul className="list-disc pl-6 space-y-2">
-                        {aboutPageContent.benefits.map((benefit, index) => (
-                            <li key={index}>{benefit}</li>
-                        ))}
-                    </ul>
+                    <div className="container w-full max-w-4xl mx-auto mt-6 px-4 py-8 mb-12">
+                        <h2 className="text-2xl text-tertiary text-shadow-2xl font-bold mt-8 mb-4">{aboutPageContent.headings.whyChooseUs}</h2>
+                        <div className="flex flex-col md:flex-row items-center justify-between">
+                            <ul className="list-disc pl-6 space-y-2">
+                                {aboutPageContent.benefits.map((benefit, index) => (
+                                    <li key={index}>{benefit}</li>
+                                ))}
+                            </ul>
+                            <Image
+                                src={AboutListImage}
+                                alt="image of a pug"
+                                className="object-contain overflow-hidden w-60 max-w-sm m-1"
+                            />
+                        </div>
+                        
 
-                    <h2 className="text-2xl font-bold mt-8 mb-4">{aboutPageContent.headings.services}</h2>
-                    <div className="grid md:grid-cols-2 gap-4">
-                        {aboutPageContent.servicesList.map((service, index) => (
-                            <div key={index} className="bg-white p-4 rounded-lg shadow">
-                                <h3 className="font-semibold text-lg">{service.name}</h3>
-                                <p>{service.description}</p>
-                            </div>
-                        ))}
+                        <h2 className="text-2xl font-bold mt-8 mb-4">{aboutPageContent.headings.services}</h2>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            {aboutPageContent.servicesList.map((service, index) => (
+                                <div key={index} className="bg-white p-4 rounded-lg shadow">
+                                    <h3 className="font-semibold text-lg">{service.name}</h3>
+                                    <p>{service.description}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <h2 className="text-2xl font-bold mt-8 mb-4">{aboutPageContent.headings.testimonials}</h2>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            {aboutPageContent.testimonials.map((testimonial, index) => (
+                                <div key={index} className="bg-yellow-50 p-4 rounded-lg border border-primary">
+                                    <p className="italic">"{testimonial.text}"</p>
+                                    <p className="font-semibold mt-2">- {testimonial.author}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-
-                    <h2 className="text-2xl font-bold mt-8 mb-4">{aboutPageContent.headings.testimonials}</h2>
-                    <div className="grid md:grid-cols-2 gap-4">
-                        {aboutPageContent.testimonials.map((testimonial, index) => (
-                            <div key={index} className="bg-yellow-50 p-4 rounded-lg border border-primary">
-                                <p className="italic">"{testimonial.text}"</p>
-                                <p className="font-semibold mt-2">- {testimonial.author}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
+                </section>
+            </main>
+        </div>
     )
 }

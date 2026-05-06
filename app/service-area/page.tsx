@@ -1,5 +1,5 @@
 import Image from "next/image"
-import ServiceAreaImage from "@/public/best-dog-groomer-corgi-wash.png";
+import ServiceAreaImage from "@/public/beagle-hound.png";
 import { Metadata } from "next";
 import { seoMetadata, ctaButtons, paragraphs, serviceAreaContent } from "@/app/data";
 
@@ -30,14 +30,14 @@ export default function ServiceArea() {
             <main className="flex-1">
                 <section className="container mx-auto px-4 py-12">
                     <header className="w-full p-2 flex flex-col items-center justify-center text-center gap-y-5">
-                        <Image 
-                            src={ServiceAreaImage}
-                            alt="professional dog grooming services available in your area - best dog groomer"
-                            className="object-contain overflow-hidden w-full max-w-sm h-auto m-1"
-                        />
                         <h1 className="text-tertiary text-3xl md:text-5xl text-shadow-lg font-bold">
                             {serviceAreaContent.headings.main}
                         </h1>
+                        <Image 
+                            src={ServiceAreaImage}
+                            alt="professional dog grooming services available in your area - best dog groomer"
+                            className="object-contain overflow-hidden w-50 max-w-sm m-1"
+                        />
                         <p className="text-secondary text-lg md:text-2xl text-shadow-md my-2 md:my-4">
                             {serviceAreaContent.subheading}
                         </p>
@@ -59,13 +59,12 @@ export default function ServiceArea() {
                 </section>
 
                 <div className="container w-full max-w-4xl mx-auto mt-6 px-4 py-8 mb-12">
+                    <h2 className="text-2xl font-bold mt-8 mb-4 text-tertiary">
+                        {serviceAreaContent.primaryArea.heading}
+                    </h2>
                     <p className="text-gray-700 mb-8 text-lg leading-relaxed">
                         {paragraphs.serviceAreaIntro}
                     </p>
-
-                    <h2 className="text-2xl font-bold mt-8 mb-4 text-black">
-                        {serviceAreaContent.primaryArea.heading}
-                    </h2>
                     <div className="bg-yellow-50/25 backdrop-blur-xs p-6 rounded-lg shadow mb-8">
                         <div className="grid md:grid-cols-2 gap-3">
                             {serviceAreaContent.primaryArea.areas.map((area, index) => (
@@ -77,7 +76,7 @@ export default function ServiceArea() {
                         </div>
                     </div>
 
-                    <h2 className="text-2xl font-bold mt-8 mb-4 text-black">
+                    <h2 className="text-2xl font-bold mt-8 mb-4 text-tertiary">
                         {serviceAreaContent.surroundingCommunities.heading}
                     </h2>
                     <div className="bg-yellow-50/25 backdrop-blur-xs p-6 rounded-lg shadow mb-8">
@@ -94,11 +93,11 @@ export default function ServiceArea() {
                         </p>
                     </div>
 
-                    <h2 className="text-2xl font-bold mt-8 mb-4 text-black">
+                    <h2 className="text-2xl font-bold mt-8 mb-4 text-tertiary">
                         {serviceAreaContent.mobileGrooming.heading}
                     </h2>
+                    <p className="mb-4 text-gray-700">{serviceAreaContent.mobileGrooming.description}</p>
                     <div className="bg-yellow-50/25 backdrop-blur-xs p-6 rounded-lg shadow mb-8">
-                        <p className="mb-4 text-gray-700">{serviceAreaContent.mobileGrooming.description}</p>
                         <h3 className="font-semibold text-lg text-tertiary mb-3">Mobile Grooming Benefits:</h3>
                         <div className="grid md:grid-cols-2 gap-3">
                             {serviceAreaContent.mobileGrooming.benefits.map((benefit, index) => (
@@ -110,7 +109,7 @@ export default function ServiceArea() {
                         </div>
                     </div>
 
-                    <h2 className="text-2xl font-bold mt-8 mb-4 text-black">
+                    <h2 className="text-2xl font-bold mt-8 mb-4 text-tertiary">
                         {serviceAreaContent.whatToExpect.heading}
                     </h2>
                     <div className="bg-yellow-50/25 backdrop-blur-xs p-6 rounded-lg shadow mb-8">
@@ -126,7 +125,7 @@ export default function ServiceArea() {
                         </div>
                     </div>
 
-                    <h2 className="text-2xl font-bold mt-12 mb-4 text-black">
+                    <h2 className="text-2xl font-bold mt-12 mb-4 text-tertiary">
                         Frequently Asked Questions About Our Service Area
                     </h2>
                     <div className="space-y-4">
@@ -139,7 +138,7 @@ export default function ServiceArea() {
                     </div>
 
                     <div className="mt-12 text-center bg-primary/50 backdrop-blur-xs p-8 rounded-lg shadow">
-                        <h3 className="text-2xl font-bold text-black mb-4">
+                        <h3 className="text-2xl font-bold text-tertiary mb-4">
                             Ready to Give Your Dog the Best Grooming Experience?
                         </h3>
                         <p className="mb-6 text-gray-700">{paragraphs.ctaParagraph}</p>
