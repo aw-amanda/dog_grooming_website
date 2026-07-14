@@ -1,7 +1,7 @@
-import Image from "next/image";
-import Tub from "@/public/best-dog-groomer-tub.png";
 import { Metadata } from "next";
-import { seoMetadata, ctaButtons, contactPageContent } from "@/app/data";
+import { seoMetadata, ctaButtons, contactPageContent } from "@/lib/data";
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://aw-amanda.github.io/dog_grooming_website/';
 
 export const metadata: Metadata = {
     title: seoMetadata.contact.title,
@@ -13,11 +13,21 @@ export const metadata: Metadata = {
         type: "website",
         locale: "en_US",
         siteName: "Best Dog Grooming Services",
+        url: `${baseUrl}/contact`,
+        images: [
+            {
+                url: `${baseUrl}/og-image.jpg`,
+                width: 1200,
+                height: 630,
+                alt: "Contact Best Dog Grooming Services",
+            },
+        ],
     },
     twitter: {
         card: "summary_large_image",
         title: seoMetadata.contact.title,
         description: seoMetadata.contact.description,
+        images: [`${baseUrl}/og-image.jpg`],
     },
     alternates: {
         canonical: "/contact",
@@ -29,26 +39,41 @@ export default function Contact() {
         <section 
             id="contact"
             className="relative w-full min-h-screen bg-linear-to-b from-yellow-50 via-primary to-yellow-50 overflow-hidden pt-18"
+            aria-labelledby="contact-heading"
         >
             <div className="relative z-10 w-full px-4 py-12">
                 <div className="container mx-auto max-w-4xl">
                     <header className="w-full max-w-3xl mx-auto p-8 text-center mb-12">
-                        <h1 className="text-tertiary text-3xl text-shadow-lg font-bold">
+                        <h1 
+                            id="contact-heading"
+                            className="text-tertiary text-3xl text-shadow-lg font-bold"
+                        >
                             {contactPageContent.headings.main}
                         </h1>
-                        <div className="w-full h-0.5 my-6 bg-linear-to-r from-transparent via-tertiary to-transparent"/>
+                        <div 
+                            className="w-full h-0.5 my-6 bg-linear-to-r from-transparent via-tertiary to-transparent"
+                            role="presentation"
+                            aria-hidden="true"
+                        />
                         <p className="text-yellow-950 text-md">
                             {contactPageContent.description}
                         </p>
                     </header>
 
-                    <div className="bg-black/10 backdrop-blur-sm rounded-xl shadow-md p-6 md:p-8 border border-tertiary/30">                        
-                        <form className="w-full flex flex-col gap-5">
-
+                    <div 
+                        className="bg-black/10 backdrop-blur-sm rounded-xl shadow-md p-6 md:p-8 border border-tertiary/30"
+                        role="form"
+                    >                        
+                        <form 
+                            className="w-full flex flex-col gap-5"
+                            noValidate
+                            aria-label="Contact form for dog grooming services"
+                        >
                             {/* Name Field */}
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="name" className="text-tertiary font-semibold text-lg">
-                                    Full Name <span className="text-red-500">*</span>
+                                    Full Name <span className="text-red-500" aria-hidden="true">*</span>
+                                    <span className="sr-only">Required</span>
                                 </label>
                                 <input 
                                     id="name"
@@ -59,13 +84,16 @@ export default function Contact() {
                                              border border-tertiary/30 focus:border-tertiary focus:outline-none 
                                              focus:ring-2 focus:ring-tertiary/50 transition-all duration-200"
                                     required
+                                    aria-required="true"
+                                    autoComplete="name"
                                 />
                             </div>
 
                             {/* Email Field */}
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="email" className="text-tertiary font-semibold text-lg">
-                                    Email Address <span className="text-red-500">*</span>
+                                    Email Address <span className="text-red-500" aria-hidden="true">*</span>
+                                    <span className="sr-only">Required</span>
                                 </label>
                                 <input 
                                     id="email"
@@ -76,6 +104,8 @@ export default function Contact() {
                                              border border-tertiary/30 focus:border-tertiary focus:outline-none 
                                              focus:ring-2 focus:ring-tertiary/50 transition-all duration-200"
                                     required
+                                    aria-required="true"
+                                    autoComplete="email"
                                 />
                             </div>
 
@@ -92,6 +122,7 @@ export default function Contact() {
                                     className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm rounded-lg text-gray-800 
                                              border border-tertiary/30 focus:border-tertiary focus:outline-none 
                                              focus:ring-2 focus:ring-tertiary/50 transition-all duration-200"
+                                    autoComplete="tel"
                                 />
                             </div>
 
@@ -108,7 +139,7 @@ export default function Contact() {
                                              focus:ring-2 focus:ring-tertiary/50 transition-all duration-200"
                                 >
                                     <option value="">Select a service...</option>
-                                    <option value="luxury-bath">Luxury Bath & Brush</option>
+                                    <option value="luxury-bath">Luxury Bath &amp; Brush</option>
                                     <option value="full-groom">Full Groom Package</option>
                                     <option value="express-groom">Express Groom</option>
                                     <option value="pamper-package">Pamper Package</option>
@@ -120,7 +151,8 @@ export default function Contact() {
                             {/* Message Field */}
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="message" className="text-tertiary font-semibold text-lg">
-                                    Message <span className="text-red-500">*</span>
+                                    Message <span className="text-red-500" aria-hidden="true">*</span>
+                                    <span className="sr-only">Required</span>
                                 </label>
                                 <textarea 
                                     id="message"
@@ -131,15 +163,16 @@ export default function Contact() {
                                              border border-tertiary/30 focus:border-tertiary focus:outline-none 
                                              focus:ring-2 focus:ring-tertiary/50 transition-all duration-200 resize-vertical"
                                     required
+                                    aria-required="true"
                                 ></textarea>
                             </div>
 
                             {/* Preferred Contact Method */}
-                            <div className="flex flex-col gap-2">
-                                <label className="text-tertiary font-semibold text-lg">
+                            <fieldset className="flex flex-col gap-2">
+                                <legend className="text-tertiary font-semibold text-lg">
                                     Preferred Contact Method
-                                </label>
-                                <div className="flex gap-6">
+                                </legend>
+                                <div className="flex gap-6" role="radiogroup" aria-label="Contact method preference">
                                     <label className="flex items-center gap-2 text-gray-700">
                                         <input 
                                             type="radio" 
@@ -147,6 +180,7 @@ export default function Contact() {
                                             value="email"
                                             defaultChecked
                                             className="w-4 h-4 text-tertiary focus:ring-tertiary"
+                                            aria-checked="true"
                                         />
                                         Email
                                     </label>
@@ -169,7 +203,7 @@ export default function Contact() {
                                         Text Message
                                     </label>
                                 </div>
-                            </div>
+                            </fieldset>
 
                             {/* Best Time to Contact */}
                             <div className="flex flex-col gap-2">
@@ -197,14 +231,16 @@ export default function Contact() {
                                     type="submit"
                                     className="bg-tertiary text-white px-8 py-3 rounded-lg font-semibold 
                                              hover:bg-tertiary/90 transition-all duration-200 
-                                             shadow-sm hover:shadow-lg active:ring-1"
+                                             shadow-sm hover:shadow-lg focus:outline-none focus:ring-2 
+                                             focus:ring-tertiary focus:ring-offset-2"
                                 >
                                     {ctaButtons.sendMessage || "Send Message"}
                                 </button>
                                 <button 
                                     type="reset"
                                     className="bg-white/20 text-tertiary border border-tertiary px-8 py-3 rounded-lg font-semibold 
-                                             hover:bg-white/30 transition-all duration-200"
+                                             hover:bg-white/30 transition-all duration-200 focus:outline-none 
+                                             focus:ring-2 focus:ring-tertiary focus:ring-offset-2"
                                 >
                                     Clear Form
                                 </button>
@@ -212,7 +248,7 @@ export default function Contact() {
 
                             {/* Form Note */}
                             <p className="text-sm text-gray-500 text-center mt-4">
-                                <span className="text-red-500">*</span> Required fields. We'll get back to you within 24 hours.
+                                <span className="text-red-500" aria-hidden="true">*</span> Required fields. We'll get back to you within 24 hours.
                             </p>
                         </form>
                     </div>

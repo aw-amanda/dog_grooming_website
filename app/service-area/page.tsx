@@ -1,7 +1,7 @@
 import Image from "next/image"
 import ServiceAreaImage from "@/public/beagle-hound.png";
 import { Metadata } from "next";
-import { seoMetadata, ctaButtons, paragraphs, serviceAreaContent } from "@/app/data";
+import { seoMetadata, ctaButtons, paragraphs, serviceAreaContent } from "@/lib/data";
 
 export const metadata: Metadata = {
     title: seoMetadata.serviceArea.title,
@@ -35,22 +35,23 @@ export default function ServiceArea() {
                         </h1>
                         <Image 
                             src={ServiceAreaImage}
-                            alt="professional dog grooming services available in your area - best dog groomer"
+                            alt="Beagle hound illustration - representing our professional dog grooming services available in your area"
                             className="object-contain overflow-hidden w-50 max-w-sm m-1"
+                            width={200}
+                            height={200}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1024px"
                         />
                         <p className="text-secondary text-lg md:text-2xl text-shadow-md my-2 md:my-4">
                             {serviceAreaContent.subheading}
                         </p>
                         
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button className="text-tertiary px-2 py-3 md:px-3 md:py-4 bg-primary border-none rounded-xl
-                                              shadow-sm hover:shadow-lg transition-shadow active:ring-1 ease-in-out duration-200">
+                            <button className="text-tertiary px-2 py-3 md:px-3 md:py-4 bg-primary border-none rounded-xl shadow-sm hover:shadow-lg transition-shadow active:ring-1 ease-in-out duration-200">
                                 {ctaButtons.schedule}
                             </button>
                             <a 
                                 href="/contact" 
-                                className="inline-block text-tertiary px-2 py-3 md:px-3 md:py-4 bg-white/20 border border-tertiary rounded-xl
-                                          shadow-sm hover:shadow-lg transition-shadow active:ring-1 ease-in-out duration-200 text-center"
+                                className="inline-block text-tertiary px-2 py-3 md:px-3 md:py-4 bg-white/20 border border-tertiary rounded-xl shadow-sm hover:shadow-lg transition-shadow active:ring-1 ease-in-out duration-200 text-center"
                             >
                                 {ctaButtons.contactUs}
                             </a>

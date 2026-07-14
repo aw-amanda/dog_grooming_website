@@ -1,4 +1,7 @@
-Optimized 5-page commercial website template built with NextJS, TailwindCSS, and Lenis for smooth scrolling.
+5-page SEO commercial website template built with NextJS, TypeScript, and TailwindCSS.
+
+https://aw-amanda.github.io/dog_grooming_website/
+
 
 Stock images from Pixabay:
 

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { aboutPageContent, seoMetadata } from "@/app/data";
+import { aboutPageContent, seoMetadata } from "@/lib/data";
 import Image from "next/image";
 import AboutListImage from "@/public/pug.png";
 
@@ -44,8 +44,11 @@ export default function About() {
                             </ul>
                             <Image
                                 src={AboutListImage}
-                                alt="image of a pug"
+                                alt="A cute pug dog - one of the many breeds we groom"
                                 className="object-contain overflow-hidden w-60 max-w-sm m-1"
+                                width={240}
+                                height={240}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1024px"
                             />
                         </div>
                         

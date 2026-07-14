@@ -2,8 +2,7 @@
 import Logo from "@/public/BDG_Logo.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-
+import { useState, useEffect, useRef } from "react";
 
 interface NavProps {
     label: string;
@@ -18,10 +17,43 @@ const NavItems: NavProps[] = [
     { label: "Contact", href: "/contact" },
 ];
 
-const mobileMenuButton = "block w-6 h-0.5 bg-tertiary rounded-full transition-all duration-300 ease-out";
-
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const mobileMenuRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && isOpen) {
+                setIsOpen(false);
+                buttonRef.current?.focus();
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (isOpen && mobileMenuRef.current) {
+            const focusableElements = mobileMenuRef.current.querySelectorAll(
+                'a[href], button:not([disabled]), [tabindex="0"]'
+            );
+            if (focusableElements.length > 0) {
+                (focusableElements[0] as HTMLElement).focus();
+            }
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     return (
         <nav
@@ -35,14 +67,17 @@ export default function Navbar() {
                     <div className="shrink-0">
                         <Link
                             href="/"
-                            className="block text-md md:text-lg text-tertiary font-semibold hover:opacity-80 
-                                        transition-opacity duration-200"
+                            className="block text-md md:text-lg text-tertiary font-semibold hover:opacity-80 transition-opacity duration-200 focus:outline-none"
                             aria-label="Best Dog Groomer Home"
                         >
                             <Image
                                 src={Logo}
-                                alt="Logo link to home"
+                                alt="Best Dog Grooming Services logo - link to home"
                                 className="w-8 h-8 md:w-12 md:h-12 rounded-full object-contain overflow-hidden"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1024px"
+                                width={48}
+                                height={48}
+                                priority
                             />
                         </Link>
                     </div>
@@ -53,12 +88,12 @@ export default function Navbar() {
                             <li key={index} className="group">
                                 <Link
                                     href={item.href}
-                                    className="relative inline-block text-tertiary font-medium focus:outline-none
-                                             focus:text-yellow-50 transition-color duration-200"
+                                    className="relative inline-block text-tertiary font-medium focus:outline-none rounded px-2 py-1 transition-color duration-200"
+                                    aria-current={item.href === '/' ? 'page' : undefined}
                                 >
                                     {item.label}
-                                    <span className="absolute left-0 bottom-0 bg-yellow-50 h-0.5 w-full transition-all 
-                                                     duration-500 ease-in-out scale-x-0 group-hover:scale-x-100 origin-center"
+                                    <span className="absolute left-0 bottom-0 bg-yellow-50 h-0.5 w-full transition-all duration-500 ease-in-out scale-x-0 group-hover:scale-x-100 group-focus:scale-x-100 origin-center"
+                                        aria-hidden="true"
                                     />
                                 </Link>
                             </li>
@@ -67,18 +102,20 @@ export default function Navbar() {
 
                     {/* Mobile Menu Button */}
                     <button
+                        ref={buttonRef}
                         onClick={() => setIsOpen((prev) => !prev)}
-                        className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 
-                                    focus:outline-none focus:ring-2 focus:ring-tertiary 
-                                    focus:ring-offset-2 focus:ring-offset-primary/50 rounded-lg 
-                                    transition-all duration-300 z-50"
+                        className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none z-50"
                         aria-label={isOpen ? "Close menu" : "Open menu"}
                         aria-expanded={isOpen}
                         aria-controls="mobile-menu"
+                        aria-haspopup="true"
                     >
-                        <span className={`${mobileMenuButton} ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
-                        <span className={`${mobileMenuButton} ${isOpen ? "opacity-0" : ""}`} />
-                        <span className={`${mobileMenuButton} ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+                        <span className={`block w-6 h-0.5 bg-tertiary rounded-full transition-all duration-300 ease-out ${isOpen ? "rotate-45 translate-y-2" : ""}`} 
+                              aria-hidden="true" />
+                        <span className={`block w-6 h-0.5 bg-tertiary rounded-full transition-all duration-300 ease-out ${isOpen ? "opacity-0" : ""}`} 
+                              aria-hidden="true" />
+                        <span className={`block w-6 h-0.5 bg-tertiary rounded-full transition-all duration-300 ease-out ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} 
+                              aria-hidden="true" />
                     </button>
                 </div>
             </div>
@@ -86,20 +123,22 @@ export default function Navbar() {
             {/* Mobile Menu */}
             {isOpen && (
                 <div
-                    className="fixed inset-y-0 right-0 top-18 w-full h-[calc(100vh-4.5rem)] z-40
-                                bg-primary/50 backdrop-blur-xl"
-                    aria-hidden={!isOpen}
+                    ref={mobileMenuRef}
+                    id="mobile-menu"
+                    className="fixed inset-y-0 right-0 top-18 w-full h-[calc(100vh-4.5rem)] z-40 bg-primary/50 backdrop-blur-xl"
                     role="menu"
+                    aria-label="Mobile navigation"
+                    aria-hidden={!isOpen}
                 >
                     <ul className="flex flex-col p-6 gap-y-2 items-start justify-start max-w-screen">
                         {NavItems.map((item, index) => (
-                            <li key={index} className="w-full" onClick={() => setIsOpen(false)}>
+                            <li key={index} className="w-full">
                                 <Link
                                     href={item.href}
-                                    className="block w-full py-4 text-tertiary font-medium text-lg px-4 
-                                                hover:bg-secondary/20 focus:bg-secondary/20 focus:outline-none 
-                                                focus:ring-2 focus:ring-tertiary rounded-lg transition-all"
+                                    onClick={() => setIsOpen(false)}
+                                    className="block w-full py-4 text-tertiary font-medium text-lg px-4 hover:bg-secondary/20 focus:bg-secondary/20 focus:outline-none transition-all"
                                     role="menuitem"
+                                    aria-current={item.href === '/' ? 'page' : undefined}
                                 >
                                     {item.label}
                                 </Link>

@@ -1,7 +1,7 @@
 import Image from "next/image"
 import ServiceAreaHeaderImage from "@/public/australian-shepherd.png";
 import { Metadata } from "next";
-import { servicesPageContent, seoMetadata, ctaButtons, paragraphs } from "@/app/data";
+import { servicesPageContent, seoMetadata, ctaButtons, paragraphs } from "@/lib/data";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -36,8 +36,11 @@ export default function Services() {
                         </h1>
                         <Image
                             src={ServiceAreaHeaderImage}
-                            alt="illustration of dog"
+                            alt="Illustration of an Australian Shepherd dog - one of the many breeds we professionally groom"
                             className="w-60 max-w-sm object-contain overflow-hidden mt-7"
+                            width={240}
+                            height={240}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1024px"
                         />
                     </header>
 
