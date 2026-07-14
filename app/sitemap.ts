@@ -1,11 +1,12 @@
 import { MetadataRoute } from 'next'
 
 const baseUrl = 'https://aw-amanda.github.io/dog_grooming_website';
+const basePath = '/dog_grooming_website';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: baseUrl,
+      url: `${baseUrl}/`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,

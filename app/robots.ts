@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next'
 
+const baseUrl = 'https://aw-amanda.github.io/dog_grooming_website';
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
@@ -7,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/_next/'],
     },
-    sitemap: 'https://aw-amanda.github.io/dog_grooming_website/sitemap.xml',
+    sitemap: `${baseUrl}/sitemap.xml`,
   }
 }
